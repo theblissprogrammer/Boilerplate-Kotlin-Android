@@ -1,0 +1,2 @@
+include ':app', ':core-android'
+project(':core-android').projectDir = new File(settingsDir, '/Submodules/core-android')
