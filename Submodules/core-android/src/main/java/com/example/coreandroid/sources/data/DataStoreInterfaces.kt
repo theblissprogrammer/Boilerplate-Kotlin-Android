@@ -25,6 +25,5 @@ interface DataStore {
 
 interface DataWorkerType {
     fun delete(userID: Int)
-    fun clear()
     fun configure()
 }

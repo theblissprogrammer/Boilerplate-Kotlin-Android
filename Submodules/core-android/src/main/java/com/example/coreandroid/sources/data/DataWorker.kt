@@ -6,12 +6,8 @@ package com.example.coreandroid.sources.data
  */
 class DataWorker(private val store: DataStore): DataWorkerType {
 
-
     override fun delete(userID: Int) {
         store.delete(userID)
-    }
-
-    override fun clear() {
     }
 
     override fun configure() = store.configure()

@@ -13,6 +13,7 @@ object NSObject
 object NSString
 
 interface ConstantsType {
+    val jwtSecretKey: String
     val googlePlacesAPIKey: String
     val firebaseApiKey: String
     val firebaseApplicationID: String
@@ -23,6 +24,8 @@ interface ConstantsType {
 }
 
 class AppConstants: ConstantsType {
+    override val jwtSecretKey: String
+        get() = AppConstants.jwtSecretKey
     override val googlePlacesAPIKey: String
         get() = AppConstants.googlePlacesAPIKey
     override val firebaseApiKey: String
@@ -39,6 +42,11 @@ class AppConstants: ConstantsType {
         get() = AppConstants.logDNAKey
 
     companion object {
+
+        val jwtSecretKey by lazy {
+            unobfuscate(key = byteArrayOf(0)
+            )
+        }
 
         val googlePlacesAPIKey by lazy {
             unobfuscate(key = byteArrayOf(0)

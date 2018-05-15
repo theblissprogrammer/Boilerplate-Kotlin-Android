@@ -38,6 +38,11 @@
         </service>
 
         <receiver android:name=".common.controls.customTabs.CustomTabs$CopyBroadcastReceiver" />
+
+        <!-- TODO: Add fabric key or remove if not needed -->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="0" />
     </application>
 
 </manifest>
