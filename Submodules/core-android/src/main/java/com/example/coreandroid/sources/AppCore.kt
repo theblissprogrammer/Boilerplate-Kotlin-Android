@@ -15,7 +15,7 @@ interface CoreType {
     fun configure(application: Application, dependencies: Dependency)
 }
 
-class AppCore(constants: ConstantsType): CoreType {
+open class AppCore: CoreType {
     override fun configure(dependencies: Dependency) {
         // Declare dependencies used throughout app
         DependencyInjector.dependencies = dependencies
