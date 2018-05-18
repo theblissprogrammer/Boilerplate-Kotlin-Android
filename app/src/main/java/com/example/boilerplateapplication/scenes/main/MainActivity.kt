@@ -8,6 +8,7 @@ import android.view.MenuItem
 import com.example.boilerplateapplication.scenes.main.controls.MainPagerAdapter
 import android.support.v7.widget.Toolbar
 import com.example.boilerplateapplication.R
+import com.example.boilerplateapplication.common.TAB_SELECTED
 import com.example.boilerplateapplication.common.activities.BaseActivity
 import com.example.boilerplateapplication.common.protocols.NavigationInterface
 import com.example.coreandroid.sources.dependencies.HasDependencies
@@ -34,32 +35,7 @@ class MainActivity: BaseActivity(), HasDependencies {
         setContentView(R.layout.activity_main)
 
         mMainPagerAdapter = MainPagerAdapter(this.applicationContext, supportFragmentManager)
-        /*pager.adapter = mMainPagerAdapter
-        pager.offscreenPageLimit = 4
 
-        pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-            override fun onPageSelected(position: Int) {
-                invalidateOptionsMenu(position)
-            }
-            override fun onPageScrollStateChanged(state: Int) {}
-        })
-
-        invalidateOptionsMenu(0)*/
-
-        // Initialize fragments
-        if (savedInstanceState == null) {
-            /*val ft = supportFragmentManager
-                    .beginTransaction()
-
-            for (i in 0 until mMainPagerAdapter.count) {
-                val fragment = mMainPagerAdapter.getItem(i)
-                ft.add(R.id.main_fragment, fragment, fragment::class.java.simpleName)
-                ft.hide(fragment)
-            }
-
-            ft.commit()*/
-        }
 
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             var tabUnselected: TabLayout.Tab? = null
@@ -87,15 +63,16 @@ class MainActivity: BaseActivity(), HasDependencies {
                             .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
 
                     for (i in 0 until mMainPagerAdapter.count) {
-                        val fragment = mMainPagerAdapter.getItem(i)
-                        if (fragment.isAdded && i != tab.position) {
-                            ft.hide(fragment)
-                        }
+                        val fragmentTag = mMainPagerAdapter.getItem(i)::class.java.simpleName
+                        val fragment = supportFragmentManager.findFragmentByTag(fragmentTag)
+                                ?: mMainPagerAdapter.getItem(i)
 
                         if (fragment.isAdded && i == tab.position) {
                             ft.show(fragment)
                         } else if (i == tab.position) {
                             ft.add(R.id.main_fragment, fragment, fragment::class.java.simpleName)
+                        } else if (fragment.isAdded && i != tab.position) {
+                            ft.hide(fragment)
                         }
                     }
 
@@ -112,19 +89,21 @@ class MainActivity: BaseActivity(), HasDependencies {
 
         })
 
+        val selectedTab = savedInstanceState?.getInt(TAB_SELECTED, 0) ?: 0
+
         for (i in 0 until mMainPagerAdapter.count) {
-            tabs.addTab(tabs.newTab(), i, i == 0)
+            tabs.addTab(tabs.newTab(), i, i == selectedTab)
         }
 
         for (i in 0 until tabs.tabCount) {
-            tabs.getTabAt(i)?.customView = mMainPagerAdapter.getTabView(i, isSelected = i == 0)
+            tabs.getTabAt(i)?.customView = mMainPagerAdapter.getTabView(i, isSelected = i == selectedTab)
         }
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putInt(TAB_SELECTED, tabs.selectedTabPosition)
     }
 
     private fun invalidateOptionsMenu(position: Int) {
