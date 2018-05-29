@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
 interface APISessionType {
     val isAuthorized: Boolean
     fun unauthorize()
-    fun request(router: APIRouter, completion: Result<ServerResponse, NetworkError>)
+    fun request(routable: APIRoutable, completion: Result<ServerResponse, NetworkError>)
 }
 
 
@@ -55,7 +55,7 @@ internal class APISession(private val context: Context?,
     /// - Parameters:
     ///   - router: The router request.
     ///   - completion: A handler to be called once the request has finished
-    override fun request(router: APIRouter, completion: Result<ServerResponse, NetworkError>) {
+    override fun request(routable: APIRoutable, completion: Result<ServerResponse, NetworkError>) {
         // Validate connectivity
         if (!isNetworkAvailable(context = context)) {
             return completion(failure(NetworkError(internalError = NoInternetException())))
@@ -65,7 +65,7 @@ internal class APISession(private val context: Context?,
 
         // Construct request
         try {
-            urlRequestBuilder = router.asURLRequest(preferencesWorker)
+            urlRequestBuilder = routable.asURLRequest(preferencesWorker)
             urlRequestBuilder.headers(APIAccessTokenAdapter(securityWorker).build())
         } catch (exception: Exception) {
             return completion(failure(NetworkError(internalError = exception)))

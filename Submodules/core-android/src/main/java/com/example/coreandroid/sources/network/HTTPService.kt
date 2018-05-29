@@ -6,7 +6,7 @@ import com.example.coreandroid.sources.common.CompletionResponse.Companion.succe
 import com.example.coreandroid.sources.common.Result
 import com.example.coreandroid.sources.enums.NetworkMethod
 import com.example.coreandroid.sources.errors.NetworkError
-import com.example.coreandroid.sources.network.APIRouter.Companion.JSON
+import com.example.coreandroid.sources.network.APIRoutable.Companion.JSON
 import okhttp3.*
 import java.io.IOException
 import java.util.concurrent.TimeUnit

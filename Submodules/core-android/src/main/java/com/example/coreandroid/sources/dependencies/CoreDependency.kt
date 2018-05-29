@@ -22,16 +22,12 @@ import com.example.coreandroid.sources.security.SecurityWorkerType
  * Created by ahmedsaad on 2017-11-30.
  * Copyright © 2017. All rights reserved.
  */
-open class CoreDependency: Dependency {
+open class CoreDependency: CoreDependable {
 
     override var application: Application? = null
 
     override fun resolveContext(): Context? {
         return application?.applicationContext
-    }
-
-    override fun resolveCore(): CoreType {
-        return AppCore(constants = resolveConstants())
     }
 
     override fun resolveConstants(): ConstantsType {
