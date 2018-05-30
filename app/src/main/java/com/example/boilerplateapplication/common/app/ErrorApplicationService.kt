@@ -1,8 +1,8 @@
 package com.example.boilerplateapplication.common.app
 
 import com.crashlytics.android.Crashlytics
+import com.example.appstores.sources.dependencies.HasDependencies
 import com.example.coreandroid.sources.controls.ApplicationService
-import com.example.coreandroid.sources.dependencies.HasDependencies
 import io.fabric.sdk.android.Fabric
 
 /**

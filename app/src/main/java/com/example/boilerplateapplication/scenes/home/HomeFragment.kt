@@ -3,16 +3,16 @@ package com.example.boilerplateapplication.scenes.home
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import com.example.appstores.sources.dependencies.HasDependencies
 import com.example.boilerplateapplication.R
 import com.example.boilerplateapplication.common.activities.BaseFragment
 import com.example.boilerplateapplication.common.controls.PlayRatingDialog
-import com.example.coreandroid.sources.dependencies.HasDependencies
 import com.example.coreandroid.sources.preferences.PreferencesWorkerType
 import com.example.boilerplateapplication.scenes.home.common.HomeBusinessLogic
 import com.example.boilerplateapplication.scenes.home.common.HomeDisplayable
 import java.lang.ref.WeakReference
 
-class HomeFragment : BaseFragment(), HomeDisplayable, HasDependencies{
+class HomeFragment : BaseFragment(), HomeDisplayable, HasDependencies {
 
     val interactor: HomeBusinessLogic by lazy {
         HomeInteractor(

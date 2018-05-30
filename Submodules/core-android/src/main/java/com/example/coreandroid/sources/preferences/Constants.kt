@@ -1,87 +1,86 @@
-package com.example.coreandroid.sources
+package com.example.coreandroid.sources.preferences
 
 import com.example.coreandroid.sources.enums.Environment
 import java.util.*
 import kotlin.experimental.xor
-import kotlin.text.Charsets.UTF_8
 
-/**
- * Created by ahmedsaad on 2018-01-03.
- * Copyright © 2017. All rights reserved.
- */
 object NSObject
 object NSString
 
-interface ConstantsType {
-    val jwtSecretKey: String
-    val googlePlacesAPIKey: String
-    val firebaseApiKey: String
-    val firebaseApplicationID: String
-    val firebaseDatabaseUrl: String
-    val firebaseProjectID: String
-    val firebaseStorageBucket: String
-    val logDNAKey: String
-}
-
-class AppConstants: ConstantsType {
-    override val jwtSecretKey: String
-        get() = AppConstants.jwtSecretKey
-    override val googlePlacesAPIKey: String
-        get() = AppConstants.googlePlacesAPIKey
-    override val firebaseApiKey: String
-        get() = AppConstants.firebaseApiKey
-    override val firebaseApplicationID: String
-        get() = AppConstants.firebaseApplicationID
-    override val firebaseDatabaseUrl: String
-        get() = AppConstants.firebaseDatabaseUrl
-    override val firebaseProjectID: String
-        get() = AppConstants.firebaseProjectID
-    override val firebaseStorageBucket: String
-        get() = AppConstants.firebaseStorageBucket
+class Constants(val store: ConstantsStore): ConstantsType {
+    override val aesKey: String
+        get() = Constants.aesKey
     override val logDNAKey: String
-        get() = AppConstants.logDNAKey
+        get() = Constants.logDNAKey
+    override val googlePlacesAPIKey: String
+        get() = Constants.googlePlacesAPIKey
+    override val jwtSecretKey: String
+        get() = Constants.jwtSecretKey
+    override val chatApiKey: String
+        get() = Constants.chatApiKey
+    override val chatApplicationID: String
+        get() = Constants.chatApplicationID
+    override val chatDatabaseUrl: String
+        get() = Constants.chatDatabaseUrl
+    override val chatProjectID: String
+        get() = Constants.chatProjectID
+    override val chatStorageBucket: String
+        get() = Constants.chatStorageBucket
+
+
+    /// Retrieves the constant from the store that corresponds to the given key.
+    ///
+    /// - Parameter key: The key that is used to read the store item.
+    override fun <T> get(key: Int, default: T): T {
+        return store.get(key, default)
+    }
 
     companion object {
-
         val jwtSecretKey by lazy {
-            unobfuscate(key = byteArrayOf(0)
-            )
+            unobfuscate(key = when (Environment.mode) {
+                Environment.DEVELOPMENT -> byteArrayOf(0)
+                Environment.PRODUCTION -> byteArrayOf(0)
+            })
         }
 
         val googlePlacesAPIKey by lazy {
             unobfuscate(key = byteArrayOf(0)
             )
         }
-        
-        val firebaseApiKey by lazy {
+
+        val aesKey by lazy {
+            unobfuscate(key = byteArrayOf(0)
+            )
+        }
+        val chatApiKey by lazy {
             unobfuscate(key = when (Environment.mode) {
                 Environment.DEVELOPMENT -> byteArrayOf(0)
                 Environment.PRODUCTION -> byteArrayOf(0)
             })
         }
 
-        val firebaseApplicationID by lazy {
+        val chatApplicationID by lazy {
             unobfuscate(key = when (Environment.mode) {
                 Environment.DEVELOPMENT -> byteArrayOf(0)
                 Environment.PRODUCTION -> byteArrayOf(0)
             })
         }
 
-        val firebaseDatabaseUrl by lazy {
+        val chatDatabaseUrl by lazy {
             unobfuscate(key = when (Environment.mode) {
                 Environment.DEVELOPMENT -> byteArrayOf(0)
                 Environment.PRODUCTION -> byteArrayOf(0)
             })
         }
 
-        val firebaseProjectID by lazy {
+        val chatProjectID by lazy {
             unobfuscate(key = when (Environment.mode) {
                 Environment.DEVELOPMENT -> byteArrayOf(0)
                 Environment.PRODUCTION -> byteArrayOf(0)
             })
         }
 
-        val firebaseStorageBucket by lazy {
+        val chatStorageBucket by lazy {
             unobfuscate(key = when (Environment.mode) {
                 Environment.DEVELOPMENT -> byteArrayOf(0)
                 Environment.PRODUCTION -> byteArrayOf(0)
@@ -95,7 +94,7 @@ class AppConstants: ConstantsType {
         /// The salt used to obfuscate and reveal the string.
         private val secretSalt = {
             Arrays.toString(arrayOf(NSObject::class.java.simpleName,
-                        NSString::class.java.simpleName))
+                    NSString::class.java.simpleName))
         }()
 
         /**
@@ -108,17 +107,17 @@ class AppConstants: ConstantsType {
         - returns: the obfuscated string in a byte array
          */
         /*fun obfuscate(string: String): String {
-            val text = string.toByteArray(UTF_8)
-            val cipher = AppConstants.secretSalt.toByteArray(UTF_8)
-            val length = cipher.count()
-            val encrypted = mutableListOf<Byte>()
+        val text = string.toByteArray(UTF_8)
+        val cipher = JiffyConstants.secretSalt.toByteArray(UTF_8)
+        val length = cipher.count()
+        val encrypted = mutableListOf<Byte>()
 
-            text.mapIndexedTo(encrypted) { index, value ->
-                value xor cipher[index % length]
-            }
+        text.mapIndexedTo(encrypted) { index, value ->
+            value xor cipher[index % length]
+        }
 
-            return encrypted.joinToString()
-        }*/
+        return encrypted.joinToString()
+    }*/
 
         /**
         This method reveals the original string from the obfuscated
@@ -130,7 +129,7 @@ class AppConstants: ConstantsType {
         - returns: the original string
          */
         fun unobfuscate(key: ByteArray): String {
-            val cipher = AppConstants.secretSalt.toByteArray(UTF_8)
+            val cipher = Constants.secretSalt.toByteArray(Charsets.UTF_8)
             val length = cipher.count()
             val decrypted = mutableListOf<Byte>()
 
@@ -138,7 +137,7 @@ class AppConstants: ConstantsType {
                 value xor cipher[index % length]
             }
 
-            return String(decrypted.toByteArray(), charset = UTF_8)
+            return String(decrypted.toByteArray(), charset = Charsets.UTF_8)
         }
     }
 }

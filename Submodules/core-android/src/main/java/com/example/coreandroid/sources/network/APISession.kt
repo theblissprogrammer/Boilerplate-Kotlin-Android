@@ -10,7 +10,7 @@ import com.example.coreandroid.sources.errors.NetworkError
 import com.example.coreandroid.sources.extensions.callOnUiThread
 import com.example.coreandroid.sources.extensions.scrubbed
 import com.example.coreandroid.sources.logging.LogHelper
-import com.example.coreandroid.sources.preferences.PreferencesWorkerType
+import com.example.coreandroid.sources.preferences.ConstantsType
 import com.example.coreandroid.sources.security.SecurityWorkerType
 import okhttp3.*
 import java.util.concurrent.TimeUnit
@@ -28,7 +28,7 @@ interface APISessionType {
 
 
 internal class APISession(private val context: Context?,
-                          private val preferencesWorker: PreferencesWorkerType,
+                          private val constants: ConstantsType,
                           private val securityWorker: SecurityWorkerType): APISessionType {
 
     private val sessionManager : OkHttpClient = OkHttpClient().newBuilder()
@@ -65,7 +65,7 @@ internal class APISession(private val context: Context?,
 
         // Construct request
         try {
-            urlRequestBuilder = routable.asURLRequest(preferencesWorker)
+            urlRequestBuilder = routable.asURLRequest(constants)
             urlRequestBuilder.headers(APIAccessTokenAdapter(securityWorker).build())
         } catch (exception: Exception) {
             return completion(failure(NetworkError(internalError = exception)))

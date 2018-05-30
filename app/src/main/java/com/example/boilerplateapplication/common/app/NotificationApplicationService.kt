@@ -1,9 +1,9 @@
 package com.example.boilerplateapplication.common.app
 
+import com.example.appstores.sources.dependencies.HasDependencies
 import com.example.boilerplateapplication.R
 import com.example.coreandroid.sources.controls.ApplicationService
 import com.example.coreandroid.sources.controls.PushNotificationApplicationServicable
-import com.example.coreandroid.sources.dependencies.HasDependencies
 import com.example.coreandroid.sources.protocols.AuthenticationServiceDelegate
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging.INSTANCE_ID_SCOPE

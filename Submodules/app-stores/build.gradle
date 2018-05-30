@@ -28,7 +28,6 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'com.parse.bolts:bolts-tasks:1.4.0'
     implementation project(':core-android')
-    implementation files('libs/adhan-1.0.0.jar')
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation 'com.google.code.gson:gson:2.8.2'
 }

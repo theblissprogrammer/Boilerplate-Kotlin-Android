@@ -7,7 +7,7 @@ import io.realm.Realm
  * Created by ahmedsaad on 2017-11-30.
  * Copyright © 2017. All rights reserved.
  */
- private interface HasDependencies {
+ internal interface HasDependencies {
 
     /// Container for dependency instance factories
     val dependencies: CoreDependable

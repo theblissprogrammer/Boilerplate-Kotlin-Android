@@ -8,18 +8,6 @@ import com.example.coreandroid.sources.enums.DefaultsKey
  */
 
 interface PreferencesStore {
-    val baseURL: String
-    val baseUserREST: String
-    val baseProREST: String
-    val emailUserAdmin: Int
-    val facebookShareURL: Int
-    val supportEmailBody: Int
-    val forgotPasswordURL: String
-    val firebaseURL: String
-    val blogURL: String
-    val blogRSS: String
-    val isAnonymousEnabled: Boolean
-
     fun <T> get(key: DefaultsKey<T?>): T?
     fun <T> set(value: T?, key: DefaultsKey<T?>)
     fun <T> remove(key: DefaultsKey<T?>)

@@ -1,9 +1,9 @@
 package com.example.boilerplateapplication.common.app
 
 import android.app.Activity
+import com.example.appstores.sources.dependencies.HasDependencies
 import com.example.coreandroid.sources.controls.ApplicationService
 import com.example.coreandroid.sources.data.DataWorkerType
-import com.example.coreandroid.sources.dependencies.HasDependencies
 import com.example.coreandroid.sources.logging.LogHelper
 import com.example.coreandroid.sources.protocols.AuthenticationServiceDelegate
 

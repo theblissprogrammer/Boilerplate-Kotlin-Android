@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment
 import android.view.MenuItem
 import com.example.boilerplateapplication.scenes.main.controls.MainPagerAdapter
 import android.support.v7.widget.Toolbar
+import com.example.appstores.sources.dependencies.HasDependencies
 import com.example.boilerplateapplication.R
 import com.example.boilerplateapplication.common.TAB_SELECTED
 import com.example.boilerplateapplication.common.activities.BaseActivity
 import com.example.boilerplateapplication.common.protocols.NavigationInterface
-import com.example.coreandroid.sources.dependencies.HasDependencies
 import com.example.coreandroid.sources.preferences.PreferencesWorkerType
 import kotlinx.android.synthetic.main.activity_main.*
 

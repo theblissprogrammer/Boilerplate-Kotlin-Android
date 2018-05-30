@@ -1,22 +1,21 @@
 package com.example.appstores.sources.stores.videos
 
+import com.example.appstores.sources.preferences.youtubeAPIKey
+import com.example.appstores.sources.preferences.youtubeURL
 import com.example.appstores.sources.stores.videos.models.VideoModels
 import com.example.appstores.sources.stores.videos.models.YoutubeVideo
 import com.example.appstores.sources.stores.videos.models.YoutubeVideosWrapper
-import com.example.coreandroid.sources.ConstantsType
 import com.example.coreandroid.sources.common.CompletionResponse.Companion.failure
-import com.example.coreandroid.sources.common.CompletionResponse.Companion.success
 import com.example.coreandroid.sources.common.Result
 import com.example.coreandroid.sources.common.initDataError
 import com.example.coreandroid.sources.errors.DataError
 import com.example.coreandroid.sources.extensions.callInBackgroundWithCompletionOnUi
 import com.example.coreandroid.sources.logging.LogHelper
 import com.example.coreandroid.sources.network.HTTPServiceType
-import com.example.coreandroid.sources.preferences.PreferencesWorkerType
+import com.example.coreandroid.sources.preferences.ConstantsType
 import com.google.gson.Gson
 
 class VideosNetworkStore(val httpService: HTTPServiceType,
-                         val preferencesWorker: PreferencesWorkerType,
                          val constants: ConstantsType): VideosStore {
 
     override fun fetch(request: VideoModels.YoutubeRequest, completion: Result<List<YoutubeVideo>, DataError>) {
@@ -49,7 +48,7 @@ class VideosNetworkStore(val httpService: HTTPServiceType,
         }
 
         httpService.get(
-                url = preferencesWorker.youtubeURL + "/search",
+                url = constants.youtubeURL + "/search",
                 parameters = parameters
         ) {
             if (it.value == null || !it.isSuccess) {

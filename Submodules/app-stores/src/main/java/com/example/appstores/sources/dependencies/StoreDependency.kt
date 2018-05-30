@@ -17,7 +17,6 @@ open class StoreDependency: CoreDependency(), StoreDependable {
     override fun resolveVideosNetworkStore(): VideosStore {
         return VideosNetworkStore(
                 httpService = resolveHTTPService(),
-                preferencesWorker = resolvePreferencesWorker(),
                 constants = resolveConstants()
         )
     }

@@ -19,9 +19,9 @@ import java.util.concurrent.TimeUnit
 data class ServerResponse (val data: String, val headers: Map<String, String>, val statusCode: Int)
 
 interface HTTPServiceType {
-    fun post(url: String, parameters: Map<String, Any>? = null, body: String? = "", headers: Map<String, String>? = null,
+    fun post(url: String, parameters: Map<String, Any?>? = null, body: String? = "", headers: Map<String, String>? = null,
              completion: Result<ServerResponse, NetworkError>)
-    fun get(url: String, parameters: Map<String, Any>? = null, headers: Map<String, String>? = null,
+    fun get(url: String, parameters: Map<String, Any?>? = null, headers: Map<String, String>? = null,
              completion: Result<ServerResponse, NetworkError>)
 }
 
@@ -30,13 +30,13 @@ class HTTPService: HTTPServiceType {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS).build()
 
-    override fun post(url: String, parameters: Map<String, Any>?, body: String?, headers: Map<String, String>?,
+    override fun post(url: String, parameters: Map<String, Any?>?, body: String?, headers: Map<String, String>?,
                       completion: Result<ServerResponse, NetworkError>) {
         val uri = Uri.parse(url)
                 .buildUpon()
 
         try {
-            parameters?.forEach { uri.appendQueryParameter(it.key, it.value.toString()) }
+            parameters?.forEach { if (it.value != null) uri.appendQueryParameter(it.key, it.value.toString()) }
         } catch (error: Exception) {
             return completion(failure(
                     NetworkError(
@@ -57,13 +57,13 @@ class HTTPService: HTTPServiceType {
         sessionManager.request(urlRequest.build(), completion = completion)
     }
 
-    override fun get(url: String, parameters: Map<String, Any>?, headers: Map<String, String>?,
+    override fun get(url: String, parameters: Map<String, Any?>?, headers: Map<String, String>?,
                       completion: Result<ServerResponse, NetworkError>) {
         val uri = Uri.parse(url)
                 .buildUpon()
 
         try {
-            parameters?.forEach { uri.appendQueryParameter(it.key, it.value.toString()) }
+            parameters?.forEach { if (it.value != null) uri.appendQueryParameter(it.key, it.value.toString()) }
         } catch (error: Exception) {
             return completion(failure(
                     NetworkError(

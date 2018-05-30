@@ -2,12 +2,13 @@ package com.example.coreandroid.sources.dependencies
 
 import android.app.Application
 import android.content.Context
-import com.example.coreandroid.sources.ConstantsType
 import com.example.coreandroid.sources.controls.GooglePlacesSearchService
 import com.example.coreandroid.sources.network.APISessionType
 import com.example.coreandroid.sources.network.HTTPServiceType
 import com.example.coreandroid.sources.data.DataStore
 import com.example.coreandroid.sources.data.DataWorkerType
+import com.example.coreandroid.sources.preferences.ConstantsStore
+import com.example.coreandroid.sources.preferences.ConstantsType
 import com.example.coreandroid.sources.preferences.PreferencesStore
 import com.example.coreandroid.sources.preferences.PreferencesWorkerType
 import com.example.coreandroid.sources.security.SecurityStore
@@ -28,6 +29,7 @@ interface CoreDependable {
     fun resolvePreferencesWorker(): PreferencesWorkerType
     fun resolveSecurityWorker(): SecurityWorkerType
 
+    fun resolveConstantsStore(): ConstantsStore
     fun resolvePreferencesStore(): PreferencesStore
     fun resolveSecurityStore(): SecurityStore
     fun resolveDataStore(): DataStore

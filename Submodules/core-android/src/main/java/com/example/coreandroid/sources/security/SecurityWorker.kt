@@ -12,9 +12,9 @@ import javax.security.auth.x500.X500Principal
 import java.io.ByteArrayOutputStream
 import javax.crypto.*
 import android.util.Base64
-import com.example.coreandroid.sources.ConstantsType
 import com.example.coreandroid.sources.enums.SecurityProperty
 import com.example.coreandroid.sources.enums.SecurityProperty.*
+import com.example.coreandroid.sources.preferences.ConstantsType
 import org.json.JSONObject
 import java.io.ByteArrayInputStream
 import javax.crypto.spec.SecretKeySpec

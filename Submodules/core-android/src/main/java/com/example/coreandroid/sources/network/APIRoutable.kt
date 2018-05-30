@@ -2,7 +2,7 @@ package com.example.coreandroid.sources.network
 
 import android.net.Uri
 import com.example.coreandroid.sources.enums.NetworkMethod
-import com.example.coreandroid.sources.preferences.PreferencesWorkerType
+import com.example.coreandroid.sources.preferences.ConstantsType
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -24,17 +24,16 @@ abstract class APIRoutable {
     open val requestBody: RequestBody? = null
     open val queryParameterList: MutableMap<String, Any>? = null
 
-    fun asURLRequest(preferencesWorker: PreferencesWorkerType) : Request.Builder {
-        val uri = Uri.parse(preferencesWorker.baseURL)
-                .buildUpon()
-                .appendEncodedPath(preferencesWorker.baseUserREST)
-                .appendEncodedPath(path)
+    open fun getURI(constants: ConstantsType): Uri.Builder = Uri.parse("").buildUpon()
+
+    fun asURLRequest(constants: ConstantsType) : Request.Builder {
+        val uri = getURI(constants)
 
         queryParameterList?.forEach { uri.appendQueryParameter(it.key, it.value.toString()) }
 
-        val requestBody =  requestBody ?: if (requestJSON != null)
-            RequestBody.create(JSON, requestJSON.toString()) else
-            RequestBody.create(null, "")
+        val requestBody =  requestBody ?: if (method == NetworkMethod.GET || method == NetworkMethod.DELETE) null else
+            if (requestJSON != null) RequestBody.create(JSON, requestJSON.toString()) else
+                RequestBody.create(null, "")
 
         return Request.Builder()
                 .url(uri.build().toString())

@@ -13,8 +13,8 @@ import android.support.v4.app.NotificationCompat
 import android.app.NotificationChannel
 import android.content.Context
 import android.graphics.Color
+import com.example.appstores.sources.dependencies.HasDependencies
 import com.example.boilerplateapplication.R
-import com.example.coreandroid.sources.dependencies.HasDependencies
 import com.example.coreandroid.sources.enums.DefaultsKeys.Companion.userID
 import com.example.coreandroid.sources.extensions.ACTION_REFRESHED_DEVICE_TOKEN
 import com.example.coreandroid.sources.extensions.DEVICE_TOKEN

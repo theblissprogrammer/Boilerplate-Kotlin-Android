@@ -2,17 +2,13 @@ package com.example.coreandroid.sources.dependencies
 
 import android.app.Application
 import android.content.Context
-import com.example.coreandroid.sources.*
 import com.example.coreandroid.sources.controls.GooglePlacesSearchService
 import com.example.coreandroid.sources.network.APISession
 import com.example.coreandroid.sources.network.APISessionType
 import com.example.coreandroid.sources.network.HTTPService
 import com.example.coreandroid.sources.network.HTTPServiceType
 import com.example.coreandroid.sources.data.*
-import com.example.coreandroid.sources.preferences.PreferencesResourceStore
-import com.example.coreandroid.sources.preferences.PreferencesStore
-import com.example.coreandroid.sources.preferences.PreferencesWorker
-import com.example.coreandroid.sources.preferences.PreferencesWorkerType
+import com.example.coreandroid.sources.preferences.*
 import com.example.coreandroid.sources.security.SecurityPreferenceStore
 import com.example.coreandroid.sources.security.SecurityStore
 import com.example.coreandroid.sources.security.SecurityWorker
@@ -31,7 +27,9 @@ open class CoreDependency: CoreDependable {
     }
 
     override fun resolveConstants(): ConstantsType {
-        return AppConstants()
+        return Constants(
+                store = resolveConstantsStore()
+        )
     }
 
     // Workers
@@ -53,6 +51,12 @@ open class CoreDependency: CoreDependable {
 
     // Stores
 
+    override fun resolveConstantsStore(): ConstantsStore {
+        return ConstantsResourceStore(
+                context = resolveContext()
+        )
+    }
+
     override fun resolveDataStore(): DataStore {
         return DataRealmStore(
                 preferencesWorker = resolvePreferencesWorker()
@@ -60,7 +64,7 @@ open class CoreDependency: CoreDependable {
     }
 
     override fun resolvePreferencesStore(): PreferencesStore {
-        return PreferencesResourceStore(context = resolveContext())
+        return PreferencesDefaultsStore(context = resolveContext())
     }
 
     override fun resolveSecurityStore(): SecurityStore {
@@ -76,7 +80,7 @@ open class CoreDependency: CoreDependable {
     override fun resolveAPISessionService(): APISessionType {
         return APISession(
                 context = resolveContext(),
-                preferencesWorker = resolvePreferencesWorker(),
+                constants = resolveConstants(),
                 securityWorker = resolveSecurityWorker()
         )
     }

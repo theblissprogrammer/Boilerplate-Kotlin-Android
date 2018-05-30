@@ -2,11 +2,11 @@ package com.example.coreandroid.sources.logging
 
 import android.content.Context
 import android.os.Build
-import com.example.coreandroid.sources.ConstantsType
 import com.example.coreandroid.sources.dependencies.HasDependencies
 import com.example.coreandroid.sources.enums.DefaultsKeys.Companion.userID
 import com.example.coreandroid.sources.enums.Environment
 import com.example.coreandroid.sources.logging.destinations.LogDNADestination
+import com.example.coreandroid.sources.preferences.ConstantsType
 import com.example.coreandroid.sources.preferences.PreferencesWorkerType
 import org.json.JSONObject
 

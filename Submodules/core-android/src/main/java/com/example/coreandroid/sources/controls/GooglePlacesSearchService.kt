@@ -1,9 +1,9 @@
 package com.example.coreandroid.sources.controls
 
 import android.net.Uri
-import com.example.coreandroid.sources.ConstantsType
 import com.example.coreandroid.sources.common.Result
 import com.example.coreandroid.sources.extensions.callInBackgroundWithCompletionOnUi
+import com.example.coreandroid.sources.preferences.ConstantsType
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
