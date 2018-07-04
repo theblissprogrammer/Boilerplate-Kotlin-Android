@@ -27,8 +27,8 @@ User Information&lt;br /&gt;
 ID: %5$s&lt;br /&gt;
 -------------------&lt;br /&gt;</string>
 
-    <string name="firebase_url_debug">https://us-central1-chat-63a45.cloudfunctions.net</string>
-    <string name="firebase_url">https://us-central1-chat-2bbbd.cloudfunctions.net</string>
+    <string name="firebase_url_debug">https://example.com</string>
+    <string name="firebase_url">https://example.com</string>
     <string name="blog_url">http://blog.example.com</string>
     <string name="blog_rss">http://blog.example.com/rss</string>
     <string name="forgot_password_path">/users/password/new</string>

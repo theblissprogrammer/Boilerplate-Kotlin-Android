@@ -62,18 +62,23 @@ class MainActivity: BaseActivity(), HasDependencies {
                             .beginTransaction()
                             .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
 
-                    for (i in 0 until mMainPagerAdapter.count) {
-                        val fragmentTag = mMainPagerAdapter.getItem(i)::class.java.simpleName
+                    //Hide unselected tab
+                    tabUnselected?.apply {
+                        val fragmentTag = mMainPagerAdapter.getItem(this.position)::class.java.simpleName
                         val fragment = supportFragmentManager.findFragmentByTag(fragmentTag)
-                                ?: mMainPagerAdapter.getItem(i)
+                                ?: mMainPagerAdapter.getItem(this.position)
+                        ft.hide(fragment)
+                    }
 
-                        if (fragment.isAdded && i == tab.position) {
-                            ft.show(fragment)
-                        } else if (i == tab.position) {
-                            ft.add(R.id.main_fragment, fragment, fragment::class.java.simpleName)
-                        } else if (fragment.isAdded && i != tab.position) {
-                            ft.hide(fragment)
-                        }
+                    //Show selected tab
+                    val fragmentTag = mMainPagerAdapter.getItem(tab.position)::class.java.simpleName
+                    val fragment = supportFragmentManager.findFragmentByTag(fragmentTag)
+                            ?: mMainPagerAdapter.getItem(tab.position)
+
+                    if (fragment.isAdded) {
+                        ft.show(fragment)
+                    } else {
+                        ft.add(R.id.main_fragment, fragment, fragment::class.java.simpleName)
                     }
 
                     ft.commit()
